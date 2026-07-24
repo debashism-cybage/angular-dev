@@ -8,8 +8,15 @@
       "url": "https://api.githubcopilot.com/mcp/"
     },
     "figma": {
-       "url": "https://mcp.figma.com/mcp",
-       "type": "http"
-     }
+      "url": "https://mcp.figma.com/mcp",
+      "type": "http"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
   }
 }
