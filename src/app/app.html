@@ -1,4 +1,8 @@
-@if (isAuthenticated()) {
+@if (isLoading()) {
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+  </div>
+} @else if (isAuthenticated()) {
   <div class="app-container">
     <header class="app-header">
       <h1 class="app-title">angular-dev</h1>

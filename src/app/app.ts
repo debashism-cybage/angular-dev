@@ -14,11 +14,14 @@ export class App {
 
   protected readonly user = this.authService.user;
   protected readonly isAuthenticated = this.authService.isAuthenticated;
+  protected readonly isLoading = this.authService.isLoading;
 
   constructor() {
     effect(() => {
-      if (this.authService.isAuthenticated()) {
-        this.router.navigate(['/']);
+      if (!this.authService.isLoading()) {
+        if (this.authService.isAuthenticated()) {
+          this.router.navigate(['/']);
+        }
       }
     });
   }
