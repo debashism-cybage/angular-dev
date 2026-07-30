@@ -1,0 +1,69 @@
+```css
+/* src/app/employee-list/employee-list.component.css */
+
+:host {
+  display: block;
+  padding: 20px;
+}
+
+.employee-list {
+  margin-bottom: 20px;
+}
+
+.employee-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.employee-item:hover {
+  background-color: #f1f1f1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #f1f1f1;
+}
+
+.pagination.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #888;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #ff0000;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #333;
+}
+```
