@@ -1,0 +1,54 @@
+```html
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search by Name or ID" [(ngModel)]="searchTerm" (input)="searchEmployees()">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="resetSearch()">Reset</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th (click)="sortEmployees('name')">Name <i class="fas fa-sort"></i></th>
+            <th (click)="sortEmployees('employeeId')">Employee ID <i class="fas fa-sort"></i></th>
+            <th (click)="sortEmployees('department')">Department <i class="fas fa-sort"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of filteredEmployees | paginate: { itemsPerPage: 5, currentPage: currentPage }" (click)="viewEmployee(employee)">
+            <td>{{employee.name}}</td>
+            <td>{{employee.employeeId}}</td>
+            <td>{{employee.department}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedEmployee" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{selectedEmployee.name}}</h5>
+        <button type="button" class="close" (click)="selectedEmployee = null" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Employee ID:</strong> {{selectedEmployee.employeeId}}</p>
+        <p><strong>Department:</strong> {{selectedEmployee.department}}</p>
+        <p><strong>Email:</strong> {{selectedEmployee.email}}</p>
+        <p><strong>Phone:</strong> {{selectedEmployee.phone}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
