@@ -1,0 +1,93 @@
+```css
+/* src/app/employee/employee.component.css */
+
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+header input[type="search"] {
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+  background-color: #f9f9f9;
+  font-weight: 500;
+}
+
+th:hover {
+  cursor: pointer;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header input[type="search"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+```
