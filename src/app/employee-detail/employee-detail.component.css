@@ -1,0 +1,55 @@
+```css
+/* src/app/employee-detail/employee-detail.component.css */
+
+.employee-detail-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.employee-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.employee-detail-header h2 {
+  margin: 0;
+}
+
+.employee-detail-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.employee-detail-info-item {
+  flex: 1 1 45%;
+  margin: 10px 0;
+}
+
+.employee-detail-info-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.employee-detail-info-value {
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+ .employee-detail-info-item {
+    flex: 1 1 100%;
+  }
+}
+
+.employee-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+```
