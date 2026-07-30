@@ -1,0 +1,23 @@
+```html
+<div class="employee-dashboard">
+  <div class="search-bar">
+    <input type="text" placeholder="Search by name" (input)="searchEmployees($event.target.value)" />
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="employees.length > 0">
+    <ul class="employee-list">
+      <li *ngFor="let employee of employees" (click)="viewEmployee(employee.id)">
+        {{ employee.name }}
+      </li>
+    </ul>
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="page === 1">Previous</button>
+      <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+    </div>
+  </div>
+  <div *ngIf="employees.length === 0 &&!loading" class="no-results">No results found.</div>
+</div>
+```
