@@ -1,44 +1,43 @@
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { EmployeeService } from './employee.service';
-import { EmployeeFilterPipe } from './employee-filter.pipe';
-import { EmployeeSortPipe } from './employee-sort.pipe';
+import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeListComponent,
-    EmployeeDetailComponent,
-    EmployeeFilterPipe,
-    EmployeeSortPipe
+    EmployeeComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
-    MatSelectModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatTableModule,
     MatDialogModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
     AppRoutingModule
   ],
   providers: [EmployeeService],
