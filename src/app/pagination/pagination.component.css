@@ -1,0 +1,78 @@
+```css
+/* src/app/pagination/pagination.component.css */
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination li a {
+  display: block;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.pagination li a:hover {
+  background-color: #0056b3;
+}
+
+.pagination li.disabled a {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination li.active a {
+  background-color: #0056b3;
+}
+
+.employee-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.employee-item:hover {
+  background-color: #f5f5f5;
+}
+
+.employee-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.employee-details {
+  padding: 20px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin: 20px 0;
+}
+```
