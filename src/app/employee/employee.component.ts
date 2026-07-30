@@ -1,72 +1,66 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Employee } from './employee.model';
+import { EmployeeService } from '../employee.service';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeDetailComponent } from '../employee-detail/employee-detail.component';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent implements OnInit {
-  employees: Employee[] = [];
-  filteredEmployees: Employee[] = [];
-  searchText: string = '';
-  currentPage: number = 1;
-  pageSize: number = 10;
-  totalEmployees: number = 0;
-  totalPages: number = 0;
-  sortField: string = 'name';
-  sortOrder: string = 'asc';
+  employees: any[] = [];
+  filteredEmployees: any[] = [];
+  pageSize = 10;
+  currentPage = 0;
+  totalEmployees = 0;
+  totalPages = 0;
+  searchTerm = new Subject<string>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private employeeService: EmployeeService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.getEmployees();
-  }
-
-  getEmployees(): void {
-    const url = `api/employees?page=${this.currentPage}&size=${this.pageSize}&sort=${this.sortField},${this.sortOrder}`;
-    this.http.get<any>(url).subscribe((response: any) => {
-      this.employees = response.content;
-      this.filteredEmployees = response.content;
-      this.totalEmployees = response.totalElements;
-      this.totalPages = response.totalPages;
+    this.searchTerm.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term => this.employeeService.searchEmployees(term))
+    ).subscribe(data => {
+      this.employees = data.results;
+      this.totalEmployees = data.total;
+      this.totalPages = Math.ceil(this.totalEmployees / this.pageSize);
+      this.updateFilteredEmployees();
     });
   }
 
-  searchEmployees(): void {
-    if (this.searchText.trim()) {
-      const searchUrl = `api/employees/search?query=${this.searchText}`;
-      this.http.get<Employee[]>(searchUrl).subscribe((employees: Employee[]) => {
-        this.filteredEmployees = employees;
-        this.totalEmployees = employees.length;
-        this.currentPage = 1;
-      });
-    } else {
-      this.getEmployees();
+  search(term: string): void {
+    this.searchTerm.next(term);
+  }
+
+  openEmployeeDetail(employee: any): void {
+    this.dialog.open(EmployeeDetailComponent, {
+      data: employee
+    });
+  }
+
+  updateFilteredEmployees(): void {
+    this.filteredEmployees = this.employees.slice(this.currentPage * this.pageSize, (this.currentPage + 1) * this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.updateFilteredEmployees();
     }
   }
 
-  onPageChange(page: number): void {
-    this.currentPage = page;
-    this.getEmployees();
-  }
-
-  onSort(field: string): void {
-    if (this.sortField === field) {
-      this.sortOrder = this.sortOrder === 'asc'? 'desc' : 'asc';
-    } else {
-      this.sortField = field;
-      this.sortOrder = 'asc';
+  prevPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.updateFilteredEmployees();
     }
-    this.getEmployees();
-  }
-
-  viewEmployee(employeeId: number): void {
-    // Implement routing to employee detail component
   }
 }
 ```
