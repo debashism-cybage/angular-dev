@@ -1,14 +1,16 @@
+src/app/employee/employee.service.ts
 ```typescript
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
-interface Employee {
+export interface Employee {
   id: number;
   name: string;
-  employeeId: string;
+  position: string;
   department: string;
+  email: string;
 }
 
 @Injectable({
@@ -16,32 +18,36 @@ interface Employee {
 })
 export class EmployeeService {
 
-  private apiUrl = 'https://api.example.com/employees';
+  private apiUrl = 'https://api.example.com/employees'; // Replace with actual API URL
 
   constructor(private http: HttpClient) { }
 
-  searchEmployees(query: string, page: number = 1, pageSize: number = 10, sortField: string = 'name', sortOrder: 'asc' | 'desc' = 'asc'): Observable<any> {
-    const params = new HttpParams()
-     .set('q', query)
-     .set('page', page.toString())
-     .set('pageSize', pageSize.toString())
-     .set('sortField', sortField)
-     .set('sortOrder', sortOrder);
-
-    return this.http.get<any>(this.apiUrl, { params }).pipe(
-      map(response => {
-        return {
-          data: response.data,
-          total: response.total,
-          page: response.page,
-          pageSize: response.pageSize
-        };
-      })
+  getEmployees(page: number = 1, pageSize: number = 10): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}&size=${pageSize}`).pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError<any>('getEmployees'))
     );
   }
 
-  getEmployeeDetails(employeeId: string): Observable<Employee> {
-    return this.http.get<Employee>(`${this.apiUrl}/${employeeId}`);
+  searchEmployees(query: string, page: number = 1, pageSize: number = 10): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?q=${query}&page=${page}&size=${pageSize}`).pipe(
+      tap(data => console.log('Search: ', JSON.stringify(data))),
+      catchError(this.handleError<any>('searchEmployees'))
+    );
+  }
+
+  getEmployeeDetails(id: number): Observable<Employee> {
+    return this.http.get<Employee>(`${this.apiUrl}/${id}`).pipe(
+      tap(employee => console.log('Details: ', JSON.stringify(employee))),
+      catchError(this.handleError<Employee>(`getEmployeeDetails`))
+    );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }
 ```
