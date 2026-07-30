@@ -1,0 +1,54 @@
+```html
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search by Name or ID" [(ngModel)]="searchTerm" (input)="onSearch()">
+    </div>
+  </div>
+  <div class="row mt-3">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th (click)="sortEmployees('name')">Name <i class="fas fa-sort"></i></th>
+          <th (click)="sortEmployees('employeeID')">Employee ID <i class="fas fa-sort"></i></th>
+          <th (click)="sortEmployees('department')">Department <i class="fas fa-sort"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of sortedEmployees | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+          <td>{{employee.name}}</td>
+          <td>{{employee.employeeID}}</td>
+          <td>{{employee.department}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="viewEmployeeDetails(employee)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>
+
+<!-- Employee Detail Modal -->
+<div class="modal fade" id="employeeDetailModal" tabindex="-1" role="dialog" aria-labelledby="employeeDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="employeeDetailModalLabel">{{selectedEmployee.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Employee ID:</strong> {{selectedEmployee.employeeID}}</p>
+        <p><strong>Department:</strong> {{selectedEmployee.department}}</p>
+        <p><strong>Address:</strong> {{selectedEmployee.address}}</p>
+        <p><strong>Phone Number:</strong> {{selectedEmployee.phoneNumber}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
