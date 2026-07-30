@@ -1,0 +1,49 @@
+```css
+/* src/app/employee-details/employee-details.component.css */
+
+.employee-details-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.employee-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employee-details-header h3 {
+  margin: 0;
+}
+
+.employee-details-section {
+  margin-bottom: 20px;
+}
+
+.employee-details-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.employee-details-value {
+  margin-bottom: 10px;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+```
