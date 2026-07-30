@@ -1,63 +1,60 @@
 ```css
 /* src/app/employee/employee.component.css */
 
-/* General Styles */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f6f9;
-  margin: 0;
-  padding: 0;
-}
-
-/* Container */
-.container {
+:host {
+  display: block;
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
-/* Header */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e0e0e0;
+.search-container {
+  margin-bottom: 20px;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-header input[type="search"] {
-  padding: 5px;
-  font-size: 16px;
-}
-
-/* Table */
-table {
+.search-input {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
   padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-th {
-  background-color: #f9f9f9;
-  font-weight: 500;
+.employee-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-th:hover {
+.employee-card {
+  width: calc(33.333% - 20px);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
   cursor: pointer;
+  transition: transform 0.3s;
 }
 
-/* Pagination */
+.employee-card:hover {
+  transform: translateY(-5px);
+}
+
+.employee-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.employee-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.employee-card p {
+  margin: 0;
+  color: #666;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -65,29 +62,33 @@ th:hover {
 }
 
 .pagination button {
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
   margin: 0 5px;
-  padding: 5px 10px;
-  border: 1px solid #e0e0e0;
-  background-color: #fff;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button:hover {
+  background: #ddd;
 }
 
 .pagination button.active {
-  background-color: #007bff;
+  background: #007bff;
   color: #fff;
   border-color: #007bff;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
+  .employee-card {
+    width: calc(50% - 20px);
   }
+}
 
-  header input[type="search"] {
-    width: 100%;
-    margin-top: 10px;
+@media (max-width: 480px) {
+ .employee-card {
+    width: calc(100% - 20px);
   }
 }
 ```
