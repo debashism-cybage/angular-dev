@@ -1,0 +1,38 @@
+src/app/test/test.component.css
+
+```css
+:host {
+  display: block;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #3f51b5;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  font-size: 16px;
+}
+
+button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+```
