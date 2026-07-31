@@ -1,10 +1,11 @@
 ```javascript
-import React, { useState } from'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useState } from 'react';
+import './PasswordInputField.css';
 
 const PasswordInputField = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -14,57 +15,61 @@ const PasswordInputField = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <div className="password-input-container">
       <input
         type={showPassword ? 'text' : 'password'}
         value={password}
         onChange={handlePasswordChange}
-        onFocus={() => setShowPassword(false)}
-        onBlur={() => setShowPassword(false)}
-        className="password-input"
-        placeholder="Enter password"
-        aria-label="Password"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        placeholder="Enter your password"
       />
-      <button
-        type="button"
-        className="password-toggle-button"
-        onClick={togglePasswordVisibility}
-        onBlur={() => setShowPassword(false)}
-        tabIndex={-1}
-        aria-pressed={showPassword}
-        aria-label={showPassword ? 'Hide password' : 'Show password'}
-      >
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-      </button>
+      {isFocused && (
+        <button
+          className="eye-icon"
+          onClick={togglePasswordVisibility}
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+        >
+          {showPassword ? 'visibility_off' : 'visibility'}
+        </button>
+      )}
     </div>
   );
 };
 
 export default PasswordInputField;
+```
 
-// src/components/PasswordInputField.css
-
+```css
+/* PasswordInputField.css */
 .password-input-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
-.password-input {
+input[type="text"], input[type="password"] {
   padding-right: 30px;
-  width: 100%;
 }
 
-.password-toggle-button {
+.eye-icon {
   position: absolute;
-  top: 50%;
   right: 10px;
+  top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   outline: none;
-  transition: color 0.2s;
-  z-index: 1;
+  font-size: 1.2rem;
 }
 ```
