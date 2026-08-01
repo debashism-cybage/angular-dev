@@ -28,31 +28,23 @@
           [disabled]="submitting()"
         />
       </div>
-      <div class="form-group password-input-container">
-        <input
-          type="{{ passwordType }}"
+      <div class="form-group">
+        <app-password-input
           [(ngModel)]="password"
           name="password"
           placeholder="Password"
           autocomplete="new-password"
           [disabled]="submitting()"
-        />
-        <i class="eye-icon" (click)="togglePasswordVisibility()">
-          <img src="assets/eye-{{ passwordVisible? 'open' : 'closed' }}.png" alt="Toggle Password Visibility">
-        </i>
+        ></app-password-input>
       </div>
       <div class="form-group">
-        <input
-          type="{{ confirmPasswordType }}"
+        <app-password-input
           [(ngModel)]="confirmPassword"
           name="confirmPassword"
           placeholder="Confirm Password"
           autocomplete="new-password"
           [disabled]="submitting()"
-        />
-        <i class="eye-icon" (click)="toggleConfirmPasswordVisibility()">
-          <img src="assets/eye-{{ confirmPasswordVisible? 'open' : 'closed' }}.png" alt="Toggle Confirm Password Visibility">
-        </i>
+        ></app-password-input>
       </div>
       <button type="submit" class="primary-btn" [disabled]="submitting()">
         @if (submitting()) {
@@ -69,16 +61,3 @@
     </p>
   </div>
 </div>
-
-<style>
-  .password-input-container {
-    position: relative;
-  }
-  .eye-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-</style>
