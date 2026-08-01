@@ -1,6 +1,3 @@
-
-
-```html
 <div class="signup-container">
   <div class="signup-card">
     <h1>Create Account</h1>
@@ -31,33 +28,31 @@
           [disabled]="submitting()"
         />
       </div>
-      <div class="form-group password-input">
+      <div class="form-group password-input-container">
         <input
-          type="password"
+          type="{{ passwordType }}"
           [(ngModel)]="password"
           name="password"
           placeholder="Password"
           autocomplete="new-password"
           [disabled]="submitting()"
         />
-        <button type="button" class="toggle-password-visibility" (click)="togglePasswordVisibility()">
-          <i class="fa fa-eye" *ngIf="!passwordVisible"></i>
-          <i class="fa fa-eye-slash" *ngIf="passwordVisible"></i>
-        </button>
+        <i class="eye-icon" (click)="togglePasswordVisibility()">
+          <img src="assets/eye-{{ passwordVisible? 'open' : 'closed' }}.png" alt="Toggle Password Visibility">
+        </i>
       </div>
-      <div class="form-group password-input">
+      <div class="form-group">
         <input
-          type="password"
+          type="{{ confirmPasswordType }}"
           [(ngModel)]="confirmPassword"
           name="confirmPassword"
           placeholder="Confirm Password"
           autocomplete="new-password"
           [disabled]="submitting()"
         />
-        <button type="button" class="toggle-password-visibility" (click)="togglePasswordVisibility()">
-          <i class="fa fa-eye" *ngIf="!passwordVisible"></i>
-          <i class="fa fa-eye-slash" *ngIf="passwordVisible"></i>
-        </button>
+        <i class="eye-icon" (click)="toggleConfirmPasswordVisibility()">
+          <img src="assets/eye-{{ confirmPasswordVisible? 'open' : 'closed' }}.png" alt="Toggle Confirm Password Visibility">
+        </i>
       </div>
       <button type="submit" class="primary-btn" [disabled]="submitting()">
         @if (submitting()) {
@@ -74,6 +69,16 @@
     </p>
   </div>
 </div>
-```
 
-Note: The new file for `password-input.component.ts` is not included here as it was not provided in the original question. However, it would be created following the same guidelines and naming conventions mentioned in the question. The `togglePasswordVisibility()` function would also be added to the corresponding component's TypeScript file to handle the password visibility toggle.
+<style>
+  .password-input-container {
+    position: relative;
+  }
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+</style>
