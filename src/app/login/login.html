@@ -68,5 +68,15 @@
     <p class="signup-link">
       Don't have an account? <a routerLink="/signup">Sign Up</a>
     </p>
+
+    <div *ngIf="isLoggedIn()">
+      <label for="developers">Select Developer:</label>
+      <select id="developers" name="developers">
+        <option value="debashis">Debashis</option>
+        <option value="yogesh">Yogesh</option>
+        <option value="varsha">Varsha</option>
+        <option value="rohan">Rohan</option>
+      </select>
+    </div>
   </div>
 </div>

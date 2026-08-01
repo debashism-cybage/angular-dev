@@ -16,6 +16,7 @@ export class Login {
   protected readonly error = signal('');
   protected readonly emailSubmitting = signal(false);
   protected readonly googleSubmitting = signal(false);
+  protected readonly users = signal([{ name: 'User 1', id: '1' }, { name: 'User 2', id: '2' }]);
 
   protected email = '';
   protected password = '';
@@ -35,7 +36,7 @@ export class Login {
 
   async signInWithEmail(): Promise<void> {
     this.error.set('');
-    if (!this.email || !this.password) {
+    if (!this.email ||!this.password) {
       this.error.set('Please enter both email and password');
       return;
     }
