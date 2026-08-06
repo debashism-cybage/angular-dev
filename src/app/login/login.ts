@@ -26,7 +26,7 @@ export class Login {
     this.googleSubmitting.set(true);
     try {
       await this.authService.signInWithGoogle();
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     } catch (err: any) {
       this.error.set(err.message || 'Google sign-in failed');
     } finally {
@@ -43,7 +43,7 @@ export class Login {
     this.emailSubmitting.set(true);
     try {
       await this.authService.signInWithEmail(this.email, this.password);
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     } catch (err: any) {
       this.error.set(this.getErrorMessage(err.code));
     } finally {
