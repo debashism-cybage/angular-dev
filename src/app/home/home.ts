@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
-  template: `<div>Welcome to Home</div>`,
+  imports: [],
+  template: `<h1>Home</h1>`
 })
 export class Home {}
