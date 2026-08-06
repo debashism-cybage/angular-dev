@@ -1,21 +1,16 @@
-import { Routes } from '@angular/router';
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { TestComponent } from './test/test.component';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./login/login').then((m) => m.Login),
-  },
-  {
-    path: 'signup',
-    loadComponent: () => import('./signup/signup').then((m) => m.Signup),
-  },
-  {
-    path: '**',
-    redirectTo: 'login',
-  },
+const routes: Routes = [
+  { path: 'test', component: TestComponent },
+  { path: '', redirectTo: '/test', pathMatch: 'full' },
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
