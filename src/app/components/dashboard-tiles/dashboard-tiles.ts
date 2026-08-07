@@ -16,8 +16,7 @@ import { DashboardTile } from '../dashboard-tile/dashboard-tile';
         ></app-dashboard-tile>
       }
     </div>
-  `,
-  styles: []
+  `
 })
 export class DashboardTiles {
   tiles = [
