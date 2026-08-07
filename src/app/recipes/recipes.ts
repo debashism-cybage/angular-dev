@@ -1,46 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RecipesService } from '../services/recipes.service';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [],
-  template: `
-    <div class="recipes-container">
-      <h1 class="page-title">Recipes</h1>
-      <p class="page-description">Browse and discover delicious recipes.</p>
-      <div class="content-placeholder">
-        <p>Recipes will be loaded from the API.</p>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .recipes-container {
-      padding: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .page-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 8px;
-    }
-
-    .page-description {
-      font-size: 1rem;
-      color: #555577;
-      margin-bottom: 24px;
-    }
-
-    .content-placeholder {
-      background-color: #f5f5f5;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 32px;
-      text-align: center;
-      color: #888888;
-    }
-  `]
+  imports: [CommonModule],
+  templateUrl: './recipes.html',
+  styleUrls: ['./recipes.css']
 })
-export class RecipesComponent {}
+export class RecipesComponent implements OnInit {
+  recipes: any[] = [];
+  loading = false;
+  error: string | null = null;
+
+  constructor(private recipesService: RecipesService) {}
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.error = null;
+    this.recipesService.getRecipes().subscribe({
+      next: (data: any) => {
+        this.recipes = data.recipes || [];
+        this.loading = false;
+      },
+      error: (err: any) => {
+        this.error = 'Failed to load recipes. Please try again.';
+        this.loading = false;
+      }
+    });
+  }
+}
