@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DashboardTile } from '../dashboard-tile/dashboard-tile';
+import { DashboardTileComponent } from '../dashboard-tile/dashboard-tile';
 
 @Component({
   selector: 'app-dashboard-tiles',
   standalone: true,
-  imports: [DashboardTile],
+  imports: [DashboardTileComponent],
   template: `
     <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; padding: 24px;">
       @for (tile of tiles; track tile.route) {
