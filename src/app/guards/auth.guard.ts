@@ -1,15 +1,22 @@
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { filter, map, take } from 'rxjs/operators';
 
-export const authGuard = (): boolean => {
+export const authGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated()) {
-    return true;
-  }
-
-  router.navigate(['/login']);
-  return false;
+  return authService.loading$.pipe(
+    filter(loading => !loading),
+    take(1),
+    map(() => {
+      if (authService.isAuthenticated()) {
+        return true;
+      } else {
+        router.navigate(['/login']);
+        return false;
+      }
+    })
+  );
 };
