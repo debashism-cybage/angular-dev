@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard-tiles';
+import { DashboardTiles } from '../components/dashboard-tiles/dashboard-tiles';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DashboardTilesComponent],
+  imports: [DashboardTiles],
   template: `
     <div class="home-container">
       <h1>Welcome Home</h1>
