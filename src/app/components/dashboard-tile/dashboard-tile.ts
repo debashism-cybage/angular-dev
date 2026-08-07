@@ -27,14 +27,14 @@ import { Router } from '@angular/router';
       border-radius: 8px;
       padding: 24px;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
       min-width: 180px;
       min-height: 160px;
-      text-align: center;
     }
 
     .dashboard-tile:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       transform: translateY(-2px);
     }
 
@@ -44,9 +44,7 @@ import { Router } from '@angular/router';
     }
 
     .tile-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
 
     .tile-title {
