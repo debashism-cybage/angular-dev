@@ -1,33 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExercisesService } from '../services/exercises.service';
 
 @Component({
   selector: 'app-exercises',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './exercises.html',
-  styleUrls: ['./exercises.css']
+  template: `
+    <div class="exercises-container">
+      <h1>Exercises</h1>
+      <p>Exercises dashboard coming soon.</p>
+    </div>
+  `,
+  styles: [`
+    .exercises-container {
+      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+      font-family: sans-serif;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    p {
+      font-size: 1rem;
+      color: #666;
+    }
+  `]
 })
-export class ExercisesComponent implements OnInit {
-  exercises: any[] = [];
-  loading = false;
-  error: string | null = null;
-
-  constructor(private exercisesService: ExercisesService) {}
-
-  ngOnInit(): void {
-    this.loading = true;
-    this.error = null;
-    this.exercisesService.getExercises().subscribe({
-      next: (data) => {
-        this.exercises = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.error = 'Failed to load exercises. Please try again later.';
-        this.loading = false;
-      }
-    });
-  }
-}
+export class ExercisesComponent {}
