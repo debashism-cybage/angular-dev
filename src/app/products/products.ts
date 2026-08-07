@@ -16,14 +16,12 @@ import { Component } from '@angular/core';
       max-width: 1200px;
       margin: 0 auto;
     }
-
     h1 {
       font-size: 2rem;
       font-weight: 600;
       color: #1a1a1a;
       margin-bottom: 1rem;
     }
-
     p {
       color: #555;
       font-size: 1rem;
