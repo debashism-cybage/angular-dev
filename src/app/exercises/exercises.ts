@@ -19,10 +19,12 @@ import { CommonModule } from '@angular/common';
       font-family: sans-serif;
       color: #333;
     }
+
     h1 {
       font-size: 2rem;
       margin-bottom: 8px;
     }
+
     p {
       font-size: 1rem;
       color: #666;
