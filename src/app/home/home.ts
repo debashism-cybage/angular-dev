@@ -22,8 +22,9 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
+      padding: 2rem;
     }
 
     h1 {
