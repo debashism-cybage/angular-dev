@@ -1,33 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecipesService } from '../services/recipes.service';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './recipes.html',
-  styleUrls: ['./recipes.css']
+  template: `
+    <div class="recipes-container">
+      <h1>Recipes</h1>
+      <p>Recipes dashboard coming soon.</p>
+    </div>
+  `,
+  styles: [`
+    .recipes-container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: sans-serif;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      color: #666;
+    }
+  `]
 })
-export class RecipesComponent implements OnInit {
-  recipes: any[] = [];
-  loading = false;
-  error: string | null = null;
-
-  constructor(private recipesService: RecipesService) {}
-
-  ngOnInit(): void {
-    this.loading = true;
-    this.error = null;
-    this.recipesService.getRecipes().subscribe({
-      next: (data: any) => {
-        this.recipes = data.recipes || [];
-        this.loading = false;
-      },
-      error: (err: any) => {
-        this.error = 'Failed to load recipes. Please try again.';
-        this.loading = false;
-      }
-    });
-  }
-}
+export class RecipesComponent {}
