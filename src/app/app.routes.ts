@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./signup/signup').then((m) => m.Signup),
   },
   {
+    path: 'home',
+    loadComponent: () => import('./home/home').then((m) => m.home),
+  }
+  {
     path: '**',
     redirectTo: 'login',
   },
