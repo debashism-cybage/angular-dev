@@ -32,7 +32,7 @@ import { ExerciseCardComponent } from './exercise-card/exercise-card';
           }
         </div>
 
-        @if (hasNextPage()) {
+        @if (hasNextPage) {
           <div class="load-more-container">
             <button class="load-more-btn" (click)="loadMore()">Load More</button>
           </div>
@@ -107,8 +107,8 @@ export class ExercisesComponent implements OnInit {
   exercises = signal<Exercise[]>([]);
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
-  hasNextPage = signal<boolean>(false);
-  nextCursor: string | null = null;
+  hasNextPage = false;
+  nextCursor = signal<string | null>(null);
 
   constructor(private exerciseService: ExerciseService) {}
 
@@ -122,8 +122,8 @@ export class ExercisesComponent implements OnInit {
     this.exerciseService.getExercises().subscribe({
       next: (response: ExercisesResponse) => {
         this.exercises.set(response.data);
-        this.hasNextPage.set(response.hasNextPage);
-        this.nextCursor = response.nextCursor ?? null;
+        this.hasNextPage = response.hasNextPage;
+        this.nextCursor.set(response.nextCursor ?? null);
         this.loading.set(false);
       },
       error: (err: any) => {
@@ -134,13 +134,13 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadMore(): void {
-    if (!this.hasNextPage() || !this.nextCursor) return;
+    if (!this.hasNextPage || !this.nextCursor()) return;
     this.loading.set(true);
-    this.exerciseService.getExercises(this.nextCursor).subscribe({
+    this.exerciseService.getExercises(this.nextCursor()!).subscribe({
       next: (response: ExercisesResponse) => {
         this.exercises.update(current => [...current, ...response.data]);
-        this.hasNextPage.set(response.hasNextPage);
-        this.nextCursor = response.nextCursor ?? null;
+        this.hasNextPage = response.hasNextPage;
+        this.nextCursor.set(response.nextCursor ?? null);
         this.loading.set(false);
       },
       error: (err: any) => {
