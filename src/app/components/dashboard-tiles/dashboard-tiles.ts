@@ -1,42 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DashboardTileComponent } from '../dashboard-tile/dashboard-tile';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-tiles',
   standalone: true,
   imports: [DashboardTileComponent],
+  styles: [`
+    .tile-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+  `],
   template: `
-    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; padding: 24px;">
-      @for (tile of tiles; track tile.route) {
-        <app-dashboard-tile
-          [title]="tile.title"
-          [description]="tile.description"
-          [route]="tile.route"
-          [icon]="tile.icon"
-        ></app-dashboard-tile>
-      }
-    </div>
+    @if (authService.isAuthenticated()) {
+      <div class="tile-grid">
+        @for (tile of tiles; track tile.route) {
+          <app-dashboard-tile
+            [title]="tile.title"
+            [description]="tile.description"
+            [route]="tile.route"
+            [icon]="tile.icon"
+          ></app-dashboard-tile>
+        }
+      </div>
+    }
   `
 })
-export class DashboardTiles {
+export class DashboardTilesComponent {
+  authService = inject(AuthService);
+
   tiles = [
     {
       title: 'Recipes',
-      description: 'Browse and manage your recipes',
+      description: 'Browse and manage your recipes.',
       route: '/recipes',
       icon: '🍽️'
     },
     {
       title: 'Products',
-      description: 'Browse and manage your products',
+      description: 'View and manage your products.',
       route: '/products',
-      icon: '🛒'
+      icon: '📦'
     },
     {
       title: 'Exercises',
-      description: 'Browse and manage your exercises',
+      description: 'Track and manage your exercises.',
       route: '/exercises',
-      icon: '💪'
+      icon: '🏋️'
     }
   ];
 }
