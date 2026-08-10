@@ -1,38 +1,40 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+// API endpoint: https://dummyjson.com/recipes
 
 @Component({
   selector: 'app-recipes-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
-    <div class="recipes-dashboard">
-      <h1 class="page-title">Recipes</h1>
-      <div class="placeholder-content">
-        <p>Recipes dashboard content coming soon.</p>
+    <div class="dashboard-container">
+      <h1 class="dashboard-title">Recipes</h1>
+      <div class="dashboard-content">
+        <p>Recipes dashboard coming soon.</p>
       </div>
     </div>
   `,
   styles: [`
-    .recipes-dashboard {
-      padding: 24px;
+    .dashboard-container {
+      padding: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .page-title {
-      font-size: 28px;
+    .dashboard-title {
+      font-size: 2rem;
       font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 24px;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
     }
 
-    .placeholder-content {
+    .dashboard-content {
       background-color: #ffffff;
-      border: 1px solid #e0e0e0;
       border-radius: 8px;
-      padding: 24px;
-      color: #555555;
-      font-size: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      color: #6b7280;
     }
   `]
 })
