@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DashboardTileComponent } from '../dashboard-tile/dashboard-tile';
 import { AuthService } from '../../services/auth.service';
 
@@ -23,16 +23,14 @@ import { AuthService } from '../../services/auth.service';
             [title]="tile.title"
             [description]="tile.description"
             [route]="tile.route"
-            [icon]="tile.icon"
-          ></app-dashboard-tile>
+            [icon]="tile.icon">
+          </app-dashboard-tile>
         }
       </div>
     }
   `
 })
 export class DashboardTilesComponent {
-  authService = inject(AuthService);
-
   tiles = [
     {
       title: 'Recipes',
@@ -53,4 +51,6 @@ export class DashboardTilesComponent {
       icon: '🏋️'
     }
   ];
+
+  constructor(public authService: AuthService) {}
 }
