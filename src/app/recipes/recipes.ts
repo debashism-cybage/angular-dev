@@ -8,7 +8,11 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="recipes-container">
       <h1>Recipes</h1>
-      <p>Your recipes will appear here.</p>
+      <p>Browse and discover delicious recipes.</p>
+      <div class="recipes-placeholder">
+        <p>Recipes will be loaded here from the API.</p>
+        <!-- Future API integration: https://dummyjson.com/recipes -->
+      </div>
     </div>
   `,
   styles: [`
@@ -20,14 +24,21 @@ import { CommonModule } from '@angular/common';
 
     h1 {
       font-size: 2rem;
-      font-weight: 600;
-      color: #1a1a1a;
       margin-bottom: 1rem;
+      color: #333;
     }
 
     p {
-      color: #555;
-      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .recipes-placeholder {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
     }
   `]
 })
