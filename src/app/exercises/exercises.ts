@@ -8,17 +8,17 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="exercises-container">
       <h1>Exercises</h1>
-      <p>Browse and discover exercises to support your fitness journey.</p>
+      <p>Browse and explore exercises to support your fitness goals.</p>
       <div class="placeholder-content">
-        <p>Exercise library coming soon.</p>
-        <p class="api-note">Data will be powered by the ExerciseDB API.</p>
+        <p>Exercise data coming soon.</p>
+        <!-- Future API integration: https://oss.exercisedb.dev/api/v1/exercises -->
       </div>
     </div>
   `,
   styles: [`
     .exercises-container {
       padding: 2rem;
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -35,16 +35,10 @@ import { CommonModule } from '@angular/common';
     }
 
     .placeholder-content {
-      background: #f9f9f9;
-      border: 1px solid #e0e0e0;
+      background-color: #f5f5f5;
       border-radius: 8px;
       padding: 2rem;
       text-align: center;
-      margin-top: 1.5rem;
-    }
-
-    .api-note {
-      font-size: 0.875rem;
       color: #888;
     }
   `]
