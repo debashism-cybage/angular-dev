@@ -27,7 +27,7 @@ export const routes: Routes = [
   {
     path: 'exercises',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./exercises/exercises-dashboard').then((m) => m.ExercisesDashboard),
+    loadComponent: () => import('./exercises/exercises').then((m) => m.ExercisesDashboard),
   },
   {
     path: '**',
