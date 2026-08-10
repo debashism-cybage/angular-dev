@@ -1,3 +1,5 @@
+src/app/recipes/recipe-card/recipe-card.ts needs no changes — the error says to modify src/app/recipes/recipes.ts instead. But since you asked for this file, here it is unchanged:
+
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Recipe } from '../../models/recipe.model';
