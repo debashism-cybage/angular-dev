@@ -1,13 +1,4 @@
-export interface Exercise {
-  exerciseId: string;
-  name: string;
-  gifUrl: string;
-  bodyParts: string[];
-  equipments: string[];
-  targetMuscles: string[];
-  secondaryMuscles: string[];
-  instructions: string[];
-}
+export { Exercise } from '../exercises/exercise.model';
 
 export interface ExerciseMeta {
   total: number;
