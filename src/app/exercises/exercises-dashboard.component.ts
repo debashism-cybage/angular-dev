@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+// API endpoint for exercises data: https://oss.exercisedb.dev/api/v1/exercises
 
 @Component({
   selector: 'app-exercises-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
     <div class="exercises-dashboard">
       <h1 class="page-title">Exercises</h1>
@@ -17,20 +20,22 @@ import { Component } from '@angular/core';
       padding: 24px;
       max-width: 1200px;
       margin: 0 auto;
-      font-family: sans-serif;
     }
+
     .page-title {
       font-size: 2rem;
       font-weight: 600;
-      color: #1a1a1a;
+      color: #1f2937;
       margin-bottom: 24px;
     }
+
     .placeholder-content {
-      background-color: #f9f9f9;
-      border: 1px solid #e0e0e0;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: 8px;
       padding: 32px;
-      color: #555;
+      text-align: center;
+      color: #6b7280;
       font-size: 1rem;
     }
   `]
