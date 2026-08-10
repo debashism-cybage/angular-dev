@@ -1,16 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-tile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
-    <div class="dashboard-tile" (click)="handleClick()">
-      <div class="tile-icon">{{ icon }}</div>
-      <div class="tile-title">{{ title }}</div>
-      <div class="tile-description">{{ description }}</div>
-    </div>
+    <a [routerLink]="route" class="dashboard-tile">
+      <div class="tile-icon">
+        <span class="material-icon">{{ icon }}</span>
+      </div>
+      <div class="tile-content">
+        <h3 class="tile-title">{{ title }}</h3>
+        <p class="tile-description">{{ description }}</p>
+      </div>
+    </a>
   `,
   styles: [`
     .dashboard-tile {
@@ -20,51 +24,52 @@ import { Router } from '@angular/router';
       justify-content: center;
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-decoration: none;
+      color: #333333;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
       cursor: pointer;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-      min-width: 180px;
-      min-height: 160px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      min-height: 180px;
     }
 
     .dashboard-tile:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       transform: translateY(-2px);
+      background-color: #f5f5f5;
     }
 
     .tile-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
+      font-size: 48px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .material-icon {
+      font-size: 48px;
+    }
+
+    .tile-content {
+      text-align: center;
     }
 
     .tile-title {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      color: #212121;
-      margin-bottom: 8px;
-      text-align: center;
+      margin: 0 0 8px 0;
+      color: #222222;
     }
 
     .tile-description {
-      font-size: 0.875rem;
-      color: #616161;
-      text-align: center;
+      font-size: 0.95rem;
+      color: #666666;
+      margin: 0;
     }
   `]
 })
 export class DashboardTileComponent {
   @Input() title: string = '';
-  @Input() description: string = '';
   @Input() route: string = '';
+  @Input() description: string = '';
   @Input() icon: string = '';
-
-  constructor(private router: Router) {}
-
-  handleClick(): void {
-    if (this.route) {
-      this.router.navigate([this.route]);
-    }
-  }
 }
