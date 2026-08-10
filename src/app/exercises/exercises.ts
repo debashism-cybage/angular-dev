@@ -13,7 +13,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
       <h1>Exercises</h1>
       <p>Browse and explore exercises to support your fitness goals.</p>
 
-      @if (loading && exercises.length === 0) {
+      @if (loading && exercises().length === 0) {
         <div class="loading-spinner">
           <div class="spinner"></div>
           <p>Loading exercises...</p>
@@ -27,14 +27,14 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
         </div>
       }
 
-      @if (!error && exercises.length > 0) {
+      @if (!error && exercises().length > 0) {
         <div class="exercises-grid">
-          @for (exercise of exercises; track exercise.id) {
+          @for (exercise of exercises(); track exercise.id) {
             <app-exercise-card [exercise]="exercise"></app-exercise-card>
           }
         </div>
 
-        @if (hasNextPage()) {
+        @if (hasNextPage) {
           <div class="load-more-container">
             <button class="load-more-btn" (click)="loadMore()" [disabled]="loading">
               @if (loading) {
@@ -146,11 +146,11 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
   `]
 })
 export class ExercisesComponent implements OnInit {
-  exercises: Exercise[] = [];
+  exercises = signal<Exercise[]>([]);
   loading = false;
   error: string | null = null;
-  hasNextPage = signal(false);
-  nextCursor: string | null = null;
+  hasNextPage = false;
+  nextCursor = signal<string | null>(null);
 
   constructor(private exerciseService: ExerciseService) {}
 
@@ -161,15 +161,15 @@ export class ExercisesComponent implements OnInit {
   loadExercises(): void {
     this.loading = true;
     this.error = null;
-    this.exercises = [];
-    this.nextCursor = null;
-    this.hasNextPage.set(false);
+    this.exercises.set([]);
+    this.nextCursor.set(null);
+    this.hasNextPage = false;
 
     this.exerciseService.getExercises().subscribe({
       next: (response: ExercisesResponse) => {
-        this.exercises = response.data;
-        this.hasNextPage.set(response.hasNextPage);
-        this.nextCursor = response.nextCursor ?? null;
+        this.exercises.set(response.data);
+        this.hasNextPage = response.hasNextPage;
+        this.nextCursor.set(response.nextCursor ?? null);
         this.loading = false;
       },
       error: (err: any) => {
@@ -180,17 +180,17 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadMore(): void {
-    if (!this.hasNextPage() || !this.nextCursor || this.loading) {
+    if (!this.hasNextPage || !this.nextCursor() || this.loading) {
       return;
     }
 
     this.loading = true;
 
-    this.exerciseService.getExercises(this.nextCursor).subscribe({
+    this.exerciseService.getExercises(this.nextCursor()!).subscribe({
       next: (response: ExercisesResponse) => {
-        this.exercises = [...this.exercises, ...response.data];
-        this.hasNextPage.set(response.hasNextPage);
-        this.nextCursor = response.nextCursor ?? null;
+        this.exercises.set([...this.exercises(), ...response.data]);
+        this.hasNextPage = response.hasNextPage;
+        this.nextCursor.set(response.nextCursor ?? null);
         this.loading = false;
       },
       error: (err: any) => {
