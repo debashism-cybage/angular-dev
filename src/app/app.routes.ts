@@ -17,17 +17,17 @@ export const routes: Routes = [
   {
     path: 'recipes',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./recipes/recipes-dashboard').then((m) => m.RecipesDashboard),
+    loadComponent: () => import('./recipes/recipes').then((m) => m.RecipesDashboard),
   },
   {
     path: 'products',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./products/products-dashboard').then((m) => m.ProductsDashboard),
+    loadComponent: () => import('./products/products').then((m) => m.ProductsDashboard),
   },
   {
     path: 'exercises',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./exercises/exercises').then((m) => m.ExercisesDashboard),
+    loadComponent: () => import('./exercises/exercises-dashboard').then((m) => m.ExercisesDashboard),
   },
   {
     path: '**',
