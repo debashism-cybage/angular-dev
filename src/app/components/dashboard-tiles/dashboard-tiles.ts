@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { DashboardTileComponent } from '../dashboard-tile/dashboard-tile';
+import { DashboardTile } from '../dashboard-tile/dashboard-tile';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-tiles',
   standalone: true,
-  imports: [DashboardTileComponent],
+  imports: [DashboardTile],
   styles: [`
     .tile-grid {
       display: flex;
