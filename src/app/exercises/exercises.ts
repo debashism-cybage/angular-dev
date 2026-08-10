@@ -20,14 +20,14 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
         </div>
       }
 
-      @if (error) {
+      @if (error()) {
         <div class="error-message">
-          <p>{{ error }}</p>
+          <p>{{ error() }}</p>
           <button class="retry-btn" (click)="loadExercises()">Retry</button>
         </div>
       }
 
-      @if (!error && exercises().length > 0) {
+      @if (!error() && exercises().length > 0) {
         <div class="exercises-grid">
           @for (exercise of exercises(); track exercise.id) {
             <app-exercise-card [exercise]="exercise"></app-exercise-card>
@@ -148,7 +148,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
 export class ExercisesComponent implements OnInit {
   exercises = signal<Exercise[]>([]);
   loading = signal<boolean>(false);
-  error: string | null = null;
+  error = signal<string | null>(null);
   hasNextPage = signal<boolean>(false);
   nextCursor = signal<string | null>(null);
 
@@ -160,7 +160,7 @@ export class ExercisesComponent implements OnInit {
 
   loadExercises(): void {
     this.loading.set(true);
-    this.error = null;
+    this.error.set(null);
     this.exercises.set([]);
     this.nextCursor.set(null);
     this.hasNextPage.set(false);
@@ -173,7 +173,7 @@ export class ExercisesComponent implements OnInit {
         this.loading.set(false);
       },
       error: (err: any) => {
-        this.error = 'Failed to load exercises. Please try again.';
+        this.error.set('Failed to load exercises. Please try again.');
         this.loading.set(false);
       }
     });
@@ -194,7 +194,7 @@ export class ExercisesComponent implements OnInit {
         this.loading.set(false);
       },
       error: (err: any) => {
-        this.error = 'Failed to load more exercises. Please try again.';
+        this.error.set('Failed to load more exercises. Please try again.');
         this.loading.set(false);
       }
     });
