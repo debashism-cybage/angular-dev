@@ -34,7 +34,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
           }
         </div>
 
-        @if (hasNextPage) {
+        @if (hasNextPage()) {
           <div class="load-more-container">
             <button class="load-more-btn" (click)="loadMore()" [disabled]="loading">
               @if (loading) {
@@ -149,7 +149,7 @@ export class ExercisesComponent implements OnInit {
   exercises = signal<Exercise[]>([]);
   loading = false;
   error: string | null = null;
-  hasNextPage = false;
+  hasNextPage = signal<boolean>(false);
   nextCursor = signal<string | null>(null);
 
   constructor(private exerciseService: ExerciseService) {}
@@ -163,12 +163,12 @@ export class ExercisesComponent implements OnInit {
     this.error = null;
     this.exercises.set([]);
     this.nextCursor.set(null);
-    this.hasNextPage = false;
+    this.hasNextPage.set(false);
 
     this.exerciseService.getExercises().subscribe({
       next: (response: ExercisesResponse) => {
         this.exercises.set(response.data);
-        this.hasNextPage = response.hasNextPage;
+        this.hasNextPage.set(response.hasNextPage);
         this.nextCursor.set(response.nextCursor ?? null);
         this.loading = false;
       },
@@ -180,7 +180,7 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadMore(): void {
-    if (!this.hasNextPage || !this.nextCursor() || this.loading) {
+    if (!this.hasNextPage() || !this.nextCursor() || this.loading) {
       return;
     }
 
@@ -189,7 +189,7 @@ export class ExercisesComponent implements OnInit {
     this.exerciseService.getExercises(this.nextCursor()!).subscribe({
       next: (response: ExercisesResponse) => {
         this.exercises.set([...this.exercises(), ...response.data]);
-        this.hasNextPage = response.hasNextPage;
+        this.hasNextPage.set(response.hasNextPage);
         this.nextCursor.set(response.nextCursor ?? null);
         this.loading = false;
       },
