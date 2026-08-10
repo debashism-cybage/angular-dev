@@ -1,39 +1,41 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+// API endpoint: https://dummyjson.com/products
 
 @Component({
   selector: 'app-products-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
     <div class="products-dashboard">
       <h1 class="page-title">Products</h1>
       <div class="placeholder-content">
-        <p>Products dashboard content coming soon.</p>
+        <p>Products dashboard coming soon.</p>
       </div>
     </div>
   `,
   styles: [`
     .products-dashboard {
-      padding: 24px;
+      padding: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .page-title {
-      font-size: 28px;
+      font-size: 2rem;
       font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 24px;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
     }
 
     .placeholder-content {
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
       border-radius: 8px;
-      padding: 32px;
-      text-align: center;
-      color: #666666;
-      font-size: 16px;
+      padding: 2rem;
+      color: #6b7280;
+      font-size: 1rem;
     }
   `]
 })
