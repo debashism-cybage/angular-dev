@@ -8,15 +8,15 @@ import { ThemeService } from '../../services/theme.service';
   template: `
     <button
       class="theme-toggle"
-      [class.dark]="themeService.isDarkMode()"
+      [class.dark]="themeService.currentTheme() === 'dark'"
       (click)="themeService.toggleTheme()"
-      [attr.aria-label]="themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
-      [attr.aria-pressed]="themeService.isDarkMode()"
+      [attr.aria-label]="themeService.currentTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      [attr.aria-pressed]="themeService.currentTheme() === 'dark'"
       type="button"
     >
       <span class="toggle-track" aria-hidden="true">
         <span class="toggle-thumb">
-          @if (themeService.isDarkMode()) {
+          @if (themeService.currentTheme() === 'dark') {
             <svg class="icon moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
             </svg>
@@ -35,7 +35,7 @@ import { ThemeService } from '../../services/theme.service';
           }
         </span>
       </span>
-      <span class="sr-only">{{ themeService.isDarkMode() ? 'Dark mode on' : 'Light mode on' }}</span>
+      <span class="sr-only">{{ themeService.currentTheme() === 'dark' ? 'Dark mode on' : 'Light mode on' }}</span>
     </button>
   `,
   styles: [`
