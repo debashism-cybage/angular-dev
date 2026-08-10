@@ -1,5 +1,3 @@
-src/app/recipes/recipes.ts needs to be modified, not recipe-card.ts. Since you've asked me to return the complete fixed file for recipe-card.ts but the error is in recipes.ts, I need to see and fix recipes.ts. However, since only recipe-card.ts was provided, I'll return it unchanged as it requires no modifications.
-
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Recipe } from '../../models/recipe.model';
