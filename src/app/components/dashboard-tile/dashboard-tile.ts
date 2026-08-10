@@ -17,13 +17,31 @@ import { Router } from '@angular/router';
     </div>
   `,
   styles: [`
+    :host {
+      --tile-bg: #ffffff;
+      --tile-border: #e0e0e0;
+      --tile-shadow: rgba(0, 0, 0, 0.08);
+      --tile-shadow-hover: rgba(0, 0, 0, 0.15);
+      --tile-title-color: #1a1a1a;
+      --tile-description-color: #666666;
+    }
+
+    :host-context(.dark-mode) {
+      --tile-bg: #1e1e2e;
+      --tile-border: #3a3a5c;
+      --tile-shadow: rgba(0, 0, 0, 0.3);
+      --tile-shadow-hover: rgba(0, 0, 0, 0.5);
+      --tile-title-color: #e0e0f0;
+      --tile-description-color: #a0a0c0;
+    }
+
     .dashboard-tile {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
+      background-color: var(--tile-bg);
+      border: 1px solid var(--tile-border);
       border-radius: 12px;
       padding: 24px 16px;
       cursor: pointer;
@@ -31,11 +49,11 @@ import { Router } from '@angular/router';
       min-width: 160px;
       min-height: 160px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 4px var(--tile-shadow);
     }
 
     .dashboard-tile:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px var(--tile-shadow-hover);
       transform: translateY(-2px);
     }
 
@@ -58,13 +76,13 @@ import { Router } from '@angular/router';
     .tile-title {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #1a1a1a;
+      color: var(--tile-title-color);
       margin: 0 0 6px 0;
     }
 
     .tile-description {
       font-size: 0.875rem;
-      color: #666666;
+      color: var(--tile-description-color);
       margin: 0;
       line-height: 1.4;
     }
