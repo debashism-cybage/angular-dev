@@ -1,4 +1,4 @@
-src/app/recipes/recipe-card/recipe-card.ts needs no changes — the error says to modify src/app/recipes/recipes.ts instead. But since you asked for this file, here it is unchanged:
+src/app/recipes/recipes.ts needs to be modified, not recipe-card.ts. Since you've asked me to return the complete fixed file for recipe-card.ts but the error is in recipes.ts, I need to see and fix recipes.ts. However, since only recipe-card.ts was provided, I'll return it unchanged as it requires no modifications.
 
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
