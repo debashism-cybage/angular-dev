@@ -16,6 +16,8 @@ export interface ExerciseMeta {
   nextCursor: string | null;
 }
 
+export interface ExercisesMeta extends ExerciseMeta {}
+
 export interface ExercisesResponse {
   success: boolean;
   meta: ExerciseMeta;
