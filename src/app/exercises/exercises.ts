@@ -8,26 +8,44 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="exercises-container">
       <h1>Exercises</h1>
-      <p>Exercises dashboard coming soon.</p>
+      <p>Browse and discover exercises to support your fitness journey.</p>
+      <div class="placeholder-content">
+        <p>Exercise library coming soon.</p>
+        <p class="api-note">Data will be powered by the ExerciseDB API.</p>
+      </div>
     </div>
   `,
   styles: [`
     .exercises-container {
-      padding: 24px;
-      max-width: 960px;
+      padding: 2rem;
+      max-width: 1200px;
       margin: 0 auto;
-      font-family: sans-serif;
-      color: #333;
     }
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 8px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
     }
 
     p {
-      font-size: 1rem;
-      color: #666;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .placeholder-content {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .api-note {
+      font-size: 0.875rem;
+      color: #888;
     }
   `]
 })
