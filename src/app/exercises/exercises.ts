@@ -125,7 +125,7 @@ export class ExercisesComponent implements OnInit {
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
   hasNextPage = signal<boolean>(false);
-  nextCursor: string | null = null;
+  nextCursor = signal<string | null>(null);
 
   constructor(private exerciseService: ExerciseService) {}
 
@@ -144,7 +144,7 @@ export class ExercisesComponent implements OnInit {
           this.exercises.set(response.data);
         }
         this.hasNextPage.set(response.hasNextPage);
-        this.nextCursor = response.nextCursor ?? null;
+        this.nextCursor.set(response.nextCursor ?? null);
         this.loading.set(false);
       },
       error: (err: any) => {
@@ -155,8 +155,8 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadMore(): void {
-    if (this.hasNextPage() && this.nextCursor) {
-      this.fetchExercises(this.nextCursor);
+    if (this.hasNextPage() && this.nextCursor()) {
+      this.fetchExercises(this.nextCursor()!);
     }
   }
 }
