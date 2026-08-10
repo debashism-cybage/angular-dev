@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
     <div class="products-container">
       <h1>Products</h1>
-      <p>Products dashboard coming soon.</p>
+      <p>Welcome to the Products dashboard.</p>
+      <p>Product listings will be loaded here from the API.</p>
     </div>
   `,
   styles: [`
@@ -16,16 +18,19 @@ import { Component } from '@angular/core';
       max-width: 1200px;
       margin: 0 auto;
     }
+
     h1 {
       font-size: 2rem;
-      font-weight: 600;
-      color: #1a1a1a;
       margin-bottom: 1rem;
+      color: #333;
     }
+
     p {
-      color: #555;
-      font-size: 1rem;
+      color: #666;
+      margin-bottom: 0.5rem;
     }
   `]
 })
-export class ProductsComponent {}
+export class ProductsComponent {
+  // Future API integration: https://dummyjson.com/products
+}
