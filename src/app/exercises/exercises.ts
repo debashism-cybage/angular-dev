@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExerciseService } from './exercise.service';
 import { ExerciseCardComponent } from './exercise-card/exercise-card.component';
-import { Exercise, ExercisesResponse } from './exercise.model';
+import { Exercise } from './exercise.model';
 
 @Component({
   selector: 'app-exercises',
@@ -137,7 +137,7 @@ export class ExercisesComponent implements OnInit {
     this.loading.set(true);
     this.error.set(null);
     this.exerciseService.getExercises(cursor).subscribe({
-      next: (response: ExercisesResponse) => {
+      next: (response: any) => {
         if (cursor) {
           this.exercises.update(existing => [...existing, ...response.data]);
         } else {
