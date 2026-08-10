@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   template: `
     <div class="dashboard-tile" (click)="handleClick()">
       <div class="tile-icon">
-        <span>{{ icon }}</span>
+        <span class="icon">{{ icon }}</span>
       </div>
       <div class="tile-content">
         <h3 class="tile-title">{{ title }}</h3>
@@ -27,36 +27,42 @@ import { Router } from '@angular/router';
       border-radius: 8px;
       padding: 24px;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
-      min-width: 180px;
+      min-width: 160px;
       min-height: 160px;
+      text-align: center;
     }
 
     .dashboard-tile:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transform: translateY(-2px);
     }
 
     .tile-icon {
-      font-size: 2.5rem;
+      font-size: 40px;
       margin-bottom: 12px;
     }
 
+    .icon {
+      display: block;
+    }
+
     .tile-content {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .tile-title {
-      font-size: 1.1rem;
+      font-size: 18px;
       font-weight: 600;
-      color: #333333;
-      margin: 0 0 8px 0;
+      color: #212121;
+      margin: 0 0 6px 0;
     }
 
     .tile-description {
-      font-size: 0.875rem;
-      color: #666666;
+      font-size: 14px;
+      color: #616161;
       margin: 0;
     }
   `]
