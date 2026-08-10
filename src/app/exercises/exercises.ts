@@ -13,7 +13,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
       <h1>Exercises</h1>
       <p>Browse and explore exercises to support your fitness goals.</p>
 
-      @if (loading && exercises().length === 0) {
+      @if (loading() && exercises().length === 0) {
         <div class="loading-spinner">
           <div class="spinner"></div>
           <p>Loading exercises...</p>
@@ -36,8 +36,8 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
 
         @if (hasNextPage()) {
           <div class="load-more-container">
-            <button class="load-more-btn" (click)="loadMore()" [disabled]="loading">
-              @if (loading) {
+            <button class="load-more-btn" (click)="loadMore()" [disabled]="loading()">
+              @if (loading()) {
                 Loading...
               } @else {
                 Load More
@@ -147,7 +147,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
 })
 export class ExercisesComponent implements OnInit {
   exercises = signal<Exercise[]>([]);
-  loading = false;
+  loading = signal<boolean>(false);
   error: string | null = null;
   hasNextPage = signal<boolean>(false);
   nextCursor = signal<string | null>(null);
@@ -159,7 +159,7 @@ export class ExercisesComponent implements OnInit {
   }
 
   loadExercises(): void {
-    this.loading = true;
+    this.loading.set(true);
     this.error = null;
     this.exercises.set([]);
     this.nextCursor.set(null);
@@ -170,32 +170,32 @@ export class ExercisesComponent implements OnInit {
         this.exercises.set(response.data);
         this.hasNextPage.set(response.hasNextPage);
         this.nextCursor.set(response.nextCursor ?? null);
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (err: any) => {
         this.error = 'Failed to load exercises. Please try again.';
-        this.loading = false;
+        this.loading.set(false);
       }
     });
   }
 
   loadMore(): void {
-    if (!this.hasNextPage() || !this.nextCursor() || this.loading) {
+    if (!this.hasNextPage() || !this.nextCursor() || this.loading()) {
       return;
     }
 
-    this.loading = true;
+    this.loading.set(true);
 
     this.exerciseService.getExercises(this.nextCursor()!).subscribe({
       next: (response: ExercisesResponse) => {
         this.exercises.set([...this.exercises(), ...response.data]);
         this.hasNextPage.set(response.hasNextPage);
         this.nextCursor.set(response.nextCursor ?? null);
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (err: any) => {
         this.error = 'Failed to load more exercises. Please try again.';
-        this.loading = false;
+        this.loading.set(false);
       }
     });
   }
