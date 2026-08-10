@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExerciseService } from '../services/exercise.service';
 import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
@@ -13,7 +13,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
       <h1>Exercises</h1>
       <p>Browse and explore exercises to support your fitness goals.</p>
 
-      @if (loading && exercises.length === 0) {
+      @if (loading && exercises().length === 0) {
         <div class="loading-spinner">
           <div class="spinner"></div>
           <p>Loading exercises...</p>
@@ -27,9 +27,9 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
         </div>
       }
 
-      @if (!error && exercises.length > 0) {
+      @if (!error && exercises().length > 0) {
         <div class="exercises-grid">
-          @for (exercise of exercises; track exercise.id) {
+          @for (exercise of exercises(); track exercise.id) {
             <app-exercise-card [exercise]="exercise"></app-exercise-card>
           }
         </div>
@@ -146,7 +146,7 @@ import { Exercise, ExercisesResponse } from '../models/exercise.model';
   `]
 })
 export class ExercisesComponent implements OnInit {
-  exercises: Exercise[] = [];
+  exercises = signal<Exercise[]>([]);
   loading = false;
   error: string | null = null;
   hasNextPage = false;
@@ -161,13 +161,13 @@ export class ExercisesComponent implements OnInit {
   loadExercises(): void {
     this.loading = true;
     this.error = null;
-    this.exercises = [];
+    this.exercises.set([]);
     this.nextCursor = null;
     this.hasNextPage = false;
 
     this.exerciseService.getExercises().subscribe({
       next: (response: ExercisesResponse) => {
-        this.exercises = response.data;
+        this.exercises.set(response.data);
         this.hasNextPage = response.hasNextPage;
         this.nextCursor = response.nextCursor ?? null;
         this.loading = false;
@@ -188,7 +188,7 @@ export class ExercisesComponent implements OnInit {
 
     this.exerciseService.getExercises(this.nextCursor).subscribe({
       next: (response: ExercisesResponse) => {
-        this.exercises = [...this.exercises, ...response.data];
+        this.exercises.set([...this.exercises(), ...response.data]);
         this.hasNextPage = response.hasNextPage;
         this.nextCursor = response.nextCursor ?? null;
         this.loading = false;
