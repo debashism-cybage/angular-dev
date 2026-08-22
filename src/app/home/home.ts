@@ -8,7 +8,7 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
   imports: [DashboardTilesComponent],
   template: `
     <div class="home-container">
-      <h1>Welcome to Map Minds Booth 26!</h1>
+      <h1>Welcome to Hackathon 2026!</h1>
       <p>You have successfully logged in.</p>
       @if (authService.isAuthenticated()) {
         <app-dashboard-tiles></app-dashboard-tiles>
