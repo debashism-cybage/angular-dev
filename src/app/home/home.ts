@@ -8,11 +8,10 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
   imports: [DashboardTilesComponent],
   template: `
     <div class="home-container">
-      <h1>Welcome to Hackathon 2026!</h1>
+      <h1>Welcome!</h1>
       <p>You have successfully logged in.</p>
       @if (authService.isAuthenticated()) {
         <app-dashboard-tiles></app-dashboard-tiles>
-        <button class="logout-btn" (click)="authService.logout()">Logout</button>
       }
     </div>
   `,
@@ -35,21 +34,6 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
     p {
       font-size: 1rem;
       color: #555;
-    }
-
-    .logout-btn {
-      margin-top: 1.5rem;
-      padding: 0.5rem 1.5rem;
-      font-size: 1rem;
-      background-color: #e53935;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .logout-btn:hover {
-      background-color: #b71c1c;
     }
   `]
 })
