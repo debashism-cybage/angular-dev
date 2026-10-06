@@ -32,7 +32,7 @@ import { AuthService } from './services/auth.service';
       right: 0;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 1rem;
       padding: 1rem 1.25rem;
       background: rgba(15, 23, 42, 0.9);
@@ -45,7 +45,7 @@ import { AuthService } from './services/auth.service';
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-right: auto;
+      margin-left: auto;
     }
 
     .nav-links a {
@@ -68,7 +68,6 @@ import { AuthService } from './services/auth.service';
     }
 
     .logout-btn {
-      margin-left: auto;
       padding: 0.5rem 1rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 0.375rem;
