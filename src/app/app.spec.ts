@@ -1,10 +1,25 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
+import { AuthService } from './services/auth.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        provideRouter([]),
+        {
+          provide: AuthService,
+          useValue: {
+            user: signal(null),
+            isAuthenticated: signal(false),
+            isLoading: signal(false),
+            logout: vi.fn().mockResolvedValue(undefined),
+          },
+        },
+      ],
     }).compileComponents();
   });
 
@@ -14,10 +29,11 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should render the router outlet', () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
+    fixture.detectChanges();
+
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-dev');
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
 });

@@ -54,6 +54,23 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Agentic SDLC pipeline
+
+This repository includes a lightweight, executable SDLC agent workflow for the PES AIDLC pack.
+
+- Config: `.claude/config.yaml`
+- Agent sequence: `.github/agents/agent-pipeline.yaml`
+- Usage guide: `.github/agents/README.md`
+- CI gate: `.github/workflows/agent-sdlc-orchestrator.yml`
+
+The flow follows the pattern:
+
+```text
+PRD -> Epic -> Story -> Task -> Implementation -> Standards -> Security -> Review -> QA/UAT -> Release
+```
+
+This creates a working structure for connecting Jira, Confluence, GitHub, quality gates, and human approval checkpoints around the Angular app.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

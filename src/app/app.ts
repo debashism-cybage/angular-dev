@@ -1,13 +1,19 @@
 import { Component, inject, effect } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     @if (isAuthenticated()) {
-      <button class="logout-btn" (click)="logout()">Logout</button>
+      <nav class="top-nav" aria-label="Main navigation">
+        <div class="nav-links">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          <a routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+        </div>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </nav>
     }
     <router-outlet />
   `,
@@ -19,11 +25,50 @@ import { AuthService } from './services/auth.service';
       position: relative;
     }
 
-    .logout-btn {
+    .top-nav {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
       z-index: 1000;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-right: auto;
+    }
+
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a.active {
+      background: rgba(96, 165, 250, 0.2);
+      color: #bfdbfe;
+    }
+
+    .nav-links a:hover {
+      background: rgba(148, 163, 184, 0.15);
+    }
+
+    .logout-btn {
+      margin-left: auto;
       padding: 0.5rem 1rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 0.375rem;

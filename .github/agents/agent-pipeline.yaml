@@ -1,0 +1,279 @@
+name: angular-dev-sdlc-pipeline
+version: 1.0
+owner: platform-engineering
+
+summary: |
+  Production-ready SDLC orchestration for the Angular sample app, following the
+  PES AIDLC pack: PRD -> Epic -> Story -> Task -> Implementation -> Review -> QA/UAT -> Release.
+
+stages:
+  - id: prd
+    name: PRD
+    agent: Create_PRD_Agent
+    description: Capture problem, scope, success metrics, risks and constraints.
+    inputs:
+      - business_request
+      - market_or_customer_context
+      - constraints
+    outputs:
+      - prd.md
+      - prd-review-summary.md
+    required_tools:
+      - jira
+      - confluence
+      - github
+    gate: product-review
+
+  - id: epic
+    name: Epic
+    agent: Create_Epic_Agent
+    description: Break the PRD into measurable outcomes and implementation scope.
+    inputs:
+      - prd.md
+      - roadmap_context
+    outputs:
+      - epic.md
+      - epic-traceability.md
+    required_tools:
+      - jira
+      - confluence
+    gate: epic-review
+
+  - id: story
+    name: Story
+    agent: Create_Story_Agent
+    description: Turn each epic outcome into sprint-ready user stories with ACs.
+    inputs:
+      - epic.md
+    outputs:
+      - stories.md
+      - story-acceptance-matrix.md
+    required_tools:
+      - jira
+    gate: story-review
+
+  - id: task
+    name: Task
+    agent: Create_Task_Agent
+    description: Decompose the approved story into engineering tasks and dependencies.
+    inputs:
+      - stories.md
+    outputs:
+      - tasks.md
+      - task-plan.md
+    required_tools:
+      - jira
+    gate: task-review
+
+  - id: implementation
+    name: Implementation
+    agent: Feature_Dev_Agent
+    description: Build the feature, update tests, and open PR with traceability.
+    inputs:
+      - task-plan.md
+      - repo_state
+    outputs:
+      - feature-branch
+      - pull-request
+      - implementation-report.md
+    required_tools:
+      - github
+      - jira
+      - sonar
+    gate: implementation-review
+
+  - id: defect-fix
+    name: Defect Fix
+    agent: Fix_Defect_Agent
+    description: Handle production or regression defects with root-cause analysis and tests.
+    inputs:
+      - jira_bug
+      - stack_trace
+      - reproduction_steps
+    outputs:
+      - fix-branch
+      - regression-test
+      - defect-fix-report.md
+    required_tools:
+      - jira
+      - github
+      - confluence
+    gate: defect-review
+
+  - id: standards
+    name: Coding Standards
+    agent: Coding_Standards_Library
+    description: Run quality checks for security, testing, performance, docs and maintainability.
+    inputs:
+      - changed_code
+      - repository_state
+    outputs:
+      - standards-report.md
+    required_tools:
+      - static-analysis
+      - lint
+      - test-runner
+    gate: standards-gate
+
+  - id: security
+    name: Security & Secrets
+    agent: Secret_Detection_Agent
+    description: Scan for hardcoded secrets, risky patterns and access issues.
+    inputs:
+      - changed_files
+    outputs:
+      - secret-scan-report.md
+      - security-findings.md
+    required_tools:
+      - secret-scanning
+      - sonar
+    gate: security-gate
+
+  - id: code-review
+    name: Code Review
+    agent: PR_Review_Agent
+    description: Review change risk, logic correctness and integration fit before merge.
+    inputs:
+      - pull-request
+      - changed_files
+    outputs:
+      - code-review-report.md
+    required_tools:
+      - github
+      - jira
+    gate: review-approval
+
+  - id: testing
+    name: Test Case & QA
+    agent: TestCase_Agent
+    description: Generate or refine test cases and QA validation evidence.
+    inputs:
+      - story_or_feature
+      - acceptance_criteria
+    outputs:
+      - test-cases.md
+      - qa-execution-report.md
+    required_tools:
+      - jira
+      - xray
+    gate: qa-signoff
+
+  - id: uat
+    name: UAT
+    agent: UATForge
+    description: Convert business requirements into UAT scenarios and coverage analysis.
+    inputs:
+      - prd.md
+      - feature_context
+    outputs:
+      - uat-package.json
+      - uat-scenarios.md
+      - coverage-report.md
+    required_tools:
+      - confluence
+      - jira
+      - local_filesystem
+    gate: business-acceptance
+
+  - id: release
+    name: Release
+    agent: Release_Notes_Agent
+    description: Summarize merged changes and create release readiness evidence.
+    inputs:
+      - merged_prs
+      - qa_signoff
+      - uat_status
+    outputs:
+      - release-notes.md
+      - deployment-readiness.md
+    required_tools:
+      - github
+      - jira
+    gate: release-approval
+
+handoffs:
+  - from: prd
+    to: epic
+    condition: prd-review approved
+  - from: epic
+    to: story
+    condition: epic-review approved
+  - from: story
+    to: task
+    condition: story-review approved
+  - from: task
+    to: implementation
+    condition: task-plan accepted
+  - from: implementation
+    to: standards
+    condition: branch created and code committed
+  - from: standards
+    to: security
+    condition: no blocking P0/P1 findings
+  - from: security
+    to: code-review
+    condition: security gate passed
+  - from: code-review
+    to: testing
+    condition: PR approved
+  - from: testing
+    to: uat
+    condition: tests and QA evidence uploaded
+  - from: uat
+    to: release
+    condition: business signoff complete
+
+review_gates:
+  product-review:
+    required: true
+    approvers:
+      - product-owner
+  epic-review:
+    required: true
+    approvers:
+      - engineering-manager
+      - architect
+  story-review:
+    required: true
+    approvers:
+      - product-owner
+  task-review:
+    required: true
+    approvers:
+      - tech-lead
+  implementation-review:
+    required: true
+    approvers:
+      - reviewer
+  defect-review:
+    required: true
+    approvers:
+      - engineer
+      - tech-lead
+  standards-gate:
+    required: true
+    approvers:
+      - qa
+  security-gate:
+    required: true
+    approvers:
+      - security-reviewer
+  review-approval:
+    required: true
+    approvers:
+      - peer-reviewer
+  qa-signoff:
+    required: true
+    approvers:
+      - qa-lead
+  business-acceptance:
+    required: true
+    approvers:
+      - product-owner
+  release-approval:
+    required: true
+    approvers:
+      - engineering-manager
+      - release-manager
+
+artifact_root: .agent-artifacts

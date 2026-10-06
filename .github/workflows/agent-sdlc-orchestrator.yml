@@ -1,0 +1,71 @@
+name: Agentic SDLC Orchestrator
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: agent-sdlc-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  requirements-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate config exists
+        run: |
+          test -f .claude/config.yaml
+          echo "Agent config is present."
+
+      - name: Validate agent pipeline metadata
+        run: |
+          test -f .github/agents/agent-pipeline.yaml
+          echo "Agent pipeline metadata is present."
+
+  build-and-test-gate:
+    needs: requirements-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run unit tests
+        run: npm test
+
+  release-readiness:
+    needs: build-and-test-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm release gate readiness
+        run: |
+          echo "Build, test, and requirements gates passed."
+          echo "Next step: human review and business sign-off."
