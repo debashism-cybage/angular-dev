@@ -1,0 +1,30 @@
+jira:
+  url: "https://mapminds.atlassian.net/"
+  project_key: "SCRUM"
+  cloud_id: ""
+
+confluence:
+  url: "https://mapminds.atlassian.net/wiki"
+  space: "SCRUM"
+
+github:
+  owner: "debashism-cybage"
+  repo: "angular-dev"
+  base_branch: "main"
+
+sonar:
+  project_key: ""
+
+agent:
+  mode: "hybrid"
+  require_human_gate: true
+  default_reviewers:
+    - "tech-lead"
+    - "product-owner"
+    - "security-reviewer"
+
+pipeline:
+  enabled: true
+  orchestrator: "github-actions"
+  default_branch: "main"
+  artifact_dir: ".agent-artifacts"
