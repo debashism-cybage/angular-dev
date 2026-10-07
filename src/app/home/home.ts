@@ -8,8 +8,7 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
   imports: [DashboardTilesComponent],
   template: `
     <div class="home-container">
-      <h1>Welcome!</h1>
-      <p>You have successfully logged in.</p>
+      <h1>{{ welcomeMessage }}</h1>
       @if (authService.isAuthenticated()) {
         <app-dashboard-tiles></app-dashboard-tiles>
       }
@@ -39,4 +38,15 @@ import { DashboardTilesComponent } from '../components/dashboard-tiles/dashboard
 })
 export class Home {
   constructor(public authService: AuthService) {}
+
+  get welcomeMessage(): string {
+    const user = this.authService.user();
+
+    if (!user) {
+      return 'Welcome guest';
+    }
+
+    const name = user.displayName?.trim() || user.email?.trim();
+    return name ? `Welcome ${name}` : 'Welcome guest';
+  }
 }
